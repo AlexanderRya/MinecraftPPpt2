@@ -1,0 +1,8 @@
+#ifndef NMINECRAFTPP_WINDOW_HPP
+#define NMINECRAFTPP_WINDOW_HPP
+
+class window {
+	GLFWwindow* w;
+};
+
+#endif //NMINECRAFTPP_WINDOW_HPP
