@@ -2,11 +2,11 @@
 #include "core/logger.hpp"
 
 int main() {
-	minecraft::game g{};
+    minecraft::game g{};
 
-	if (auto code = g.init(); code != 0) {
-		return code;
-	}
+    if (auto code = g.init(); code != 0) {
+        return code;
+    }
 
-	return g.run();
+    return g.run();
 }

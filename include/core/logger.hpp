@@ -4,19 +4,57 @@
 #include "fmt/format.h"
 
 #include "types.hpp"
+#include "util/enum.hpp"
+#include "util/rang.hpp"
 
 #include <string>
 #include <iostream>
+#include <type_traits>
 #include <fstream>
+#include <chrono>
+#include <ctime>
 
 namespace minecraft {
-	struct logger {
-		static types::i32 log_error(const std::pair<std::string, types::log_codes>& e);
-		static void log_success(const std::string&);
-	private:
-		static std::string stringify_error_enum(const types::log_codes&);
-		static types::i32 get_enum_code(const types::log_codes&);
-	};
+    struct logger {
+        template <auto Vx>
+        static types::i32 log(std::string msg, const types::error_codes code) {
+            rang::fgB color;
+            auto to_print = fmt::format(
+                "[{}] [{}] {} with code: {}\n",
+                get_current_timestamp(),
+                stringify_error_level<Vx>(),
+                msg, to_underlying_type(code));
+            if constexpr (Vx == types::log_codes::INFO) {
+                color = rang::fgB::green;
+            } else if constexpr (Vx == types::log_codes::WARN) {
+                color = rang::fgB::yellow;
+            } else {
+                color = rang::fgB::red;
+            }
+            std::cout << color << to_print << rang::fgB::green;
+            return to_underlying_type(code);
+        }
+
+        static std::string get_current_timestamp() {
+            namespace ch = std::chrono;
+
+            auto time = ch::high_resolution_clock::to_time_t(ch::high_resolution_clock::now());
+
+            std::string buf(128, '\0');
+            buf.resize(std::strftime(buf.data(), buf.size(), "%Y-%m-%d %X", std::localtime(&time)));
+
+            return buf;
+        }
+    private:
+        template <auto Vx>
+        constexpr static std::string_view stringify_error_level() {
+            return util::enum_name<Vx>();
+        }
+
+        static std::underlying_type_t<types::error_codes> to_underlying_type(const types::error_codes& e) {
+            return static_cast<std::underlying_type_t<types::error_codes>>(e);
+        }
+    };
 }
 
 #endif //NMINECRAFTPP_LOGGER_HPP

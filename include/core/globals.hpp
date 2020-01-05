@@ -2,36 +2,66 @@
 #define NMINECRAFTPP_GLOBALS_HPP
 
 #include "types.hpp"
-#include "block/vertex.hpp"
+#include "world/vertex.hpp"
 
 #include <array>
 
 namespace minecraft {
-	constexpr auto WIDTH = 1280;
-	constexpr auto HEIGHT = 720;
+    constexpr inline auto WIDTH = 1280;
+    constexpr inline auto HEIGHT = 720;
 
-	inline types::f64 delta_time = 0;
-	inline types::f64 last_frame = 0;
+    inline types::f64 delta_time = 0;
+    inline types::f64 last_frame = 0;
 
-	inline std::array<vertex, 8> generate_indexed_cube_geometry() {
-		return { {
-			{ { 1, 1, 1 }, { 1,1 } },
-			{ { 1, 0, 1 }, { 1, 0 } },
-			{ { 0, 1, 1 }, { 0, 1 } },
-			{ { 0, 0, 1 }, { 0, 0 } }
-		} };
-	}
+    inline std::array<vertex, 36> generate_nonindexed_cube_geometry() {
+        return {{
+            {{ 0, 0, 0 }, { 0, 0 }},
+            {{ 1, 0, 0 }, { 1, 0 }},
+            {{ 1, 1, 0 }, { 1, 1 }},
+            {{ 1, 1, 0 }, { 0, 0 }},
+            {{ 0, 1, 0 }, { 0, 1 }},
+            {{ 0, 0, 0 }, { 0, 0 }},
 
-	inline std::array<types::u32, 6> generate_indices() {
-		return {
-			0, 1, 3,
-			0, 1, 2
-		};
-	}
+            {{ 0, 0, 1 }, { 0, 0 }},
+            {{ 1, 0, 1 }, { 1, 0 }},
+            {{ 1, 1, 1 }, { 1, 1 }},
+            {{ 1, 1, 1 }, { 1, 1 }},
+            {{ 0, 1, 1 }, { 0, 1 }},
+            {{ 0, 0, 1 }, { 0, 0 }},
 
-	constexpr auto CHUNK_LAYER = 16;
-	constexpr auto CHUNK_SIZE = 16 * CHUNK_LAYER;
-	constexpr auto CHUNK_VOLUME = 16 * CHUNK_SIZE;
+            {{ 0, 1, 1 }, { 1, 0 }},
+            {{ 0, 1, 0 }, { 1, 1 }},
+            {{ 0, -1, 0 }, { 0, 1 }},
+            {{ 0, 0, 0 }, { 0, 1 }},
+            {{ 0, 0, 1 }, { 0, 0 }},
+            {{ 0, 1, 1 }, { 1, 0 }},
+
+            {{ 1, 1, 1 }, { 1, 0 }},
+            {{ 1, 1, 0 }, { 1, 1 }},
+            {{ 1, 0, 0 }, { 0, 1 }},
+            {{ 1, 0, 0 }, { 0, 1 }},
+            {{ 1, 0, 1 }, { 0, 0 }},
+            {{ 1, 1, 1 }, { 1, 0 }},
+
+            {{ 0, 0, 0 }, { 0, 1 }},
+            {{ 1, 0, 0 }, { 1, 1 }},
+            {{ 1, 0, 1 }, { 1, 0 }},
+            {{ 1, 0, 1 }, { 1, 0 }},
+            {{ 0, 0, 1 }, { 0, 0 }},
+            {{ 0, 0, 0 }, { 0, 1 }},
+
+            {{ 0, 1, 0 }, { 0, 1 }},
+            {{ 1, 1, 0 }, { 1, 1 }},
+            {{ 1, 1, 1 }, { 1, 0 }},
+            {{ 1, 1, 1 }, { 1, 0 }},
+            {{ 0, 1, 1 }, { 0, 0 }},
+            {{ 0, 1, 0 }, { 0, 1 }}
+        }};
+    }
+
+    constexpr inline auto CHUNK_LAYER = 16;
+    constexpr inline auto CHUNK_SIZE = 16 * CHUNK_LAYER;
+    constexpr inline auto CHUNK_VOLUME = 16 * CHUNK_SIZE;
 } // namespace minecraft
 
 

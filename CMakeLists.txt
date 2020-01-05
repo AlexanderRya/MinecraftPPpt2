@@ -6,8 +6,9 @@ add_subdirectory(dependencies/fmt)
 add_subdirectory(dependencies/glm)
 
 include_directories(dependencies/glfw/include)
-include_directories(dependencies/glm/glm)
+include_directories(dependencies/glm)
 include_directories(dependencies/glad)
+include_directories(dependencies/stb)
 include_directories(dependencies/fmt/include)
 include_directories(include)
 
@@ -22,10 +23,23 @@ add_executable(NMinecraftPP
         include/core/types.hpp
         include/core/globals.hpp
         include/core/logger.hpp
-        src/core/logger.cpp
-        include/block/chunk.hpp
-        include/block/block.hpp
-        include/texture/texture_atlas.hpp
-        include/block/vertex.hpp include/renderer/cube_renderer.hpp include/core/shader.hpp src/core/shader.cpp)
+        include/world/chunk.hpp
+        include/world/block.hpp
+        include/texture/texture.hpp
+        include/world/vertex.hpp
+        include/renderer/chunk_renderer.hpp
+        include/core/shader.hpp
+        src/core/shader.cpp
+        include/util/enum.hpp
+        src/world/chunk.cpp
+        include/core/callbacks.hpp
+        include/util/rang.hpp
+        src/world/block.cpp
+        include/world/world.hpp
+        src/world/world.cpp
+        include/texture/texture.hpp
+        src/texture/texture.cpp
+        include/texture/assets.hpp
+        src/texture/assets.cpp)
 
-target_link_libraries(NMinecraftPP glfw fmt)
+target_link_libraries(NMinecraftPP glfw fmt pthread dl GL)

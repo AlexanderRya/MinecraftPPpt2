@@ -5,8 +5,8 @@
 #include "glm/vec2.hpp"
 
 struct vertex {
-	glm::ivec3 coords;
-	glm::ivec2 text_coords;
+    glm::ivec3 coords;
+    glm::ivec2 tx_coords;
 };
 
 #endif //NMINECRAFTPP_VERTEX_HPP
