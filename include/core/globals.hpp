@@ -13,12 +13,12 @@ namespace minecraft {
     inline types::f64 delta_time = 0;
     inline types::f64 last_frame = 0;
 
-    inline std::array<vertex, 36> generate_nonindexed_cube_geometry() {
+    constexpr inline std::array<vertex, 36> generate_non_indexed_cube_geometry() {
         return {{
             {{ 0, 0, 0 }, { 0, 0 }},
             {{ 1, 0, 0 }, { 1, 0 }},
             {{ 1, 1, 0 }, { 1, 1 }},
-            {{ 1, 1, 0 }, { 0, 0 }},
+            {{ 1, 1, 0 }, { 1, 1 }},
             {{ 0, 1, 0 }, { 0, 1 }},
             {{ 0, 0, 0 }, { 0, 0 }},
 
@@ -31,7 +31,7 @@ namespace minecraft {
 
             {{ 0, 1, 1 }, { 1, 0 }},
             {{ 0, 1, 0 }, { 1, 1 }},
-            {{ 0, -1, 0 }, { 0, 1 }},
+            {{ 0, 0, 0 }, { 0, 1 }},
             {{ 0, 0, 0 }, { 0, 1 }},
             {{ 0, 0, 1 }, { 0, 0 }},
             {{ 0, 1, 1 }, { 1, 0 }},

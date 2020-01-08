@@ -9,17 +9,19 @@ namespace minecraft {
 
         if (!vin.is_open()) {
             logger::log<types::log_codes::ERROR>(
-                "file not found error at: " + vertex.generic_string(),
+                "file not found error at: " + vertex.generic_string() + ", code:",
                 types::error_codes::FILE_NOT_FOUND);
+
             throw std::runtime_error(
-                fmt::format("can't find shader at: {}", vertex.generic_string()));
+                fmt::format("can't find shader at: {}", vertex.generic_string() + ", code:"));
         }
         if (!fin.is_open()) {
             logger::log<types::log_codes::ERROR>(
-                "file not found error at: " + fragment.generic_string(),
+                "file not found error at: " + fragment.generic_string() + ", code:",
                 types::error_codes::FILE_NOT_FOUND);
+
             throw std::runtime_error(
-                fmt::format("can't find shader at: {}", fragment.generic_string()));
+                fmt::format("can't find shader at: {}", fragment.generic_string() + ", code:"));
         }
 
         std::string
@@ -29,7 +31,8 @@ namespace minecraft {
         auto vertex_source = temp_vsource.c_str();
         auto fragment_source = temp_fsource.c_str();
 
-        types::u32 vshader = glCreateShader(GL_VERTEX_SHADER),
+        types::u32
+            vshader = glCreateShader(GL_VERTEX_SHADER),
             fshader = glCreateShader(GL_FRAGMENT_SHADER);
 
         glShaderSource(vshader, 1, &vertex_source, nullptr);
@@ -64,7 +67,7 @@ namespace minecraft {
         glDeleteShader(fshader);
 
         logger::log<types::log_codes::INFO>(
-            fmt::format("shader creation for: {} and {} exited",
+            fmt::format("shader creation for: {} and {} exited with code:",
                 vertex.generic_string(), fragment.generic_string()),
             types::error_codes::ZERO);
     }
@@ -75,7 +78,7 @@ namespace minecraft {
         std::string log(log_length, '\0');
         glGetShaderInfoLog(shader, log_length, &log_length, &log[0]);
         logger::log<types::log_codes::ERROR>(
-            "at glCompileShader", types::error_codes::SHADER_COMPILATION);
+            "at glCompileShader with code:", types::error_codes::SHADER_COMPILATION);
         return log;
     }
 
@@ -85,7 +88,7 @@ namespace minecraft {
         std::string log(log_length, '\0');
         glGetProgramInfoLog(program, log_length, &log_length, &log[0]);
         logger::log<types::log_codes::ERROR>(
-            "at glLinkProgram", types::error_codes::SHADER_LINKING);
+            "at glLinkProgram with code:", types::error_codes::SHADER_LINKING);
         return log;
     }
 
@@ -107,5 +110,9 @@ namespace minecraft {
 
     void shader::end() const {
         glUseProgram(0);
+    }
+
+    void shader::set_mat4(const char* name, const glm::mat4& mat) const {
+        glUniformMatrix4fv(glGetUniformLocation(id, name), 1, false, glm::value_ptr(mat));
     }
 }

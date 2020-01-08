@@ -10,4 +10,5 @@ uniform mat4 model;
 
 void main() {
     gl_Position = pv_mat * model * vec4(ivtx + offsets, 1.0);
+    tx_coords = itx_coords;
 }

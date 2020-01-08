@@ -1,7 +1,7 @@
 #ifndef NMINECRAFTPP_CALLBACKS_HPP
 #define NMINECRAFTPP_CALLBACKS_HPP
 
-#include "GLFW/glfw3.h"
+#include "fmt/format.h"
 
 #include "logger.hpp"
 
@@ -12,7 +12,32 @@ namespace minecraft {
         glViewport(0, 0, vwidth, vheight);
     }
 
-    static void debug_callback(const GLenum source, const GLenum type, GLuint, const GLenum severity, GLsizei, const GLchar* const message, const void*) {
+    inline void mouse_callback(GLFWwindow*, const double xpos, const double ypos) {
+        static double lastX = HEIGHT / 2.0, lastY = WIDTH / 2.0;
+        static bool first = true;
+
+        if (first) {
+            lastX = xpos;
+            lastY = ypos;
+            first = false;
+        }
+
+        double xoffset = xpos - lastX;
+        double yoffset = lastY - ypos;
+
+        lastX = xpos;
+        lastY = ypos;
+
+        cam.process(xoffset, yoffset);
+    }
+
+    inline void key_callback(GLFWwindow* w, const int key, const int scancode, const int action, const int mods) {
+        if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS) {
+            glfwSetWindowShouldClose(w, true);
+        }
+    }
+
+    inline void debug_callback(const GLenum source, const GLenum type, const GLuint id, const GLenum severity, GLsizei, const GLchar* const message, const void*) {
         auto stringify_source = [](const GLenum source) -> const char* {
             switch (source) {
                 case GL_DEBUG_SOURCE_API:
@@ -71,17 +96,23 @@ namespace minecraft {
                     return "Unknown";
             }
         };
-
-        auto to_print = fmt::format(
-            "[{}] [{}/{}] ({}): {}\n",
-            logger::get_current_timestamp(),
-            stringify_severity(severity),
-            stringify_source(source),
-            stringify_type(type),
-            message);
-        (std::cout << to_print).flush();
-        if (severity == GL_DEBUG_SEVERITY_HIGH || severity == GL_DEBUG_SEVERITY_MEDIUM) {
-            throw std::runtime_error("High severity error, aborting");
+        
+        // Filtering useless errors
+        // 131218: "Program/shader state performance warning: Vertex shader in program 3 is being recompiled based on GL state."
+        if (id != 131218) {
+            auto to_print = fmt::format(
+                "[{}] [{}/{}, id = {}] ({}): {}\n",
+                logger::get_current_timestamp(),
+                stringify_severity(severity),
+                stringify_source(source),
+                id,
+                stringify_type(type),
+                message);
+            (std::cout << to_print).flush();
+            if (severity == GL_DEBUG_SEVERITY_HIGH ||
+                severity == GL_DEBUG_SEVERITY_MEDIUM) {
+                throw std::runtime_error("High severity error, aborting");
+            }
         }
     }
 }

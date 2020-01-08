@@ -5,6 +5,7 @@
 #include "GLFW/glfw3.h"
 
 #include "core/globals.hpp"
+#include "renderer/renderer.hpp"
 #include "chunk.hpp"
 
 #include <vector>
@@ -12,13 +13,10 @@
 namespace minecraft {
     class world {
         std::vector<chunk> chunks;
-        std::array<vertex, 36> cube_data = generate_nonindexed_cube_geometry();
-        unsigned vao{}, vbo{}, chunk_vbo{};
     public:
-        world();
-        void draw() const;
+        world() = default;
         std::vector<chunk>& get_chunks();
-        chunk generate_chunk(const glm::ivec3& pos) const;
+        void generate_chunk(const glm::ivec3& pos);
     };
 }
 

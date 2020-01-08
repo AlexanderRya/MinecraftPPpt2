@@ -3,15 +3,21 @@
 
 #include "vertex.hpp"
 #include "core/types.hpp"
-#include "texture/assets.hpp"
+#include "texture/texture.hpp"
 
 #include <array>
 
 namespace minecraft {
     struct block {
-        assets::block_type type;
+        enum class block_type {
+            null,
+            air,
+            dirt
+        } type;
 
-        explicit block(const assets::block_type& type);
+        block() = default;
+        explicit block(const block_type& type);
+
         bool is_opaque() const;
     };
 }

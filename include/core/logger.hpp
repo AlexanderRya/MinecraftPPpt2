@@ -20,7 +20,7 @@ namespace minecraft {
         static types::i32 log(std::string msg, const types::error_codes code) {
             rang::fgB color;
             auto to_print = fmt::format(
-                "[{}] [{}] {} with code: {}\n",
+                "[{}] [{}] {} {}\n",
                 get_current_timestamp(),
                 stringify_error_level<Vx>(),
                 msg, to_underlying_type(code));

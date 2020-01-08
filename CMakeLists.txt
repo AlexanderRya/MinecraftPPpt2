@@ -27,7 +27,7 @@ add_executable(NMinecraftPP
         include/world/block.hpp
         include/texture/texture.hpp
         include/world/vertex.hpp
-        include/renderer/chunk_renderer.hpp
+        include/renderer/renderer.hpp
         include/core/shader.hpp
         src/core/shader.cpp
         include/util/enum.hpp
@@ -39,7 +39,8 @@ add_executable(NMinecraftPP
         src/world/world.cpp
         include/texture/texture.hpp
         src/texture/texture.cpp
-        include/texture/assets.hpp
-        src/texture/assets.cpp)
+        include/core/camera.hpp
+        src/core/camera.cpp
+        src/renderer/renderer.cpp)
 
 target_link_libraries(NMinecraftPP glfw fmt pthread dl GL)

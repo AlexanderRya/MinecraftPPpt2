@@ -2,22 +2,9 @@
 #include "world/chunk.hpp"
 
 namespace minecraft {
-    chunk::chunk(const std::array<assets::block_type, 4096>& btype, const glm::ivec3& pos)
-    : pos(pos) {
-        glGenBuffers(1, &vbo);
-
-        glBindBuffer(GL_ARRAY_BUFFER, vbo);
-
-        glBufferData(GL_ARRAY_BUFFER, sizeof(glm::ivec3) * CHUNK_VOLUME, nullptr, GL_DYNAMIC_DRAW);
-
-        glBindBuffer(GL_ARRAY_BUFFER, 0);
-
-        data.reserve(4096);
-
-        for (int i = 0; i < CHUNK_VOLUME; ++i) {
-            data.emplace_back(btype[i]);
-        }
-    }
+    chunk::chunk(const std::array<block, 4096>& btype, const glm::ivec3& pos)
+    : data(btype),
+      pos(pos) {}
 
     void chunk::trim() {
         for (int x = 0; x < 16; ++x) {
@@ -33,19 +20,12 @@ namespace minecraft {
                 }
             }
         }
-
-        glBindBuffer(GL_ARRAY_BUFFER, vbo);
-
-        glBufferSubData(GL_ARRAY_BUFFER, 0, to_draw.size() * sizeof(glm::ivec3), to_draw.data());
-    }
-
-    void chunk::draw() const {
-        glBindBuffer(GL_ARRAY_BUFFER, vbo);
-        glDrawArraysInstanced(GL_ARRAY_BUFFER, 0, 36, to_draw.size());
-        glBindBuffer(GL_ARRAY_BUFFER, 0);
     }
 
     block chunk::block_at(const types::i32 x, const types::i32 y, const types::i32 z) const {
+        if (x < 0 || x > 15 || y < 0 || y > 15 || z < 0 || z > 15) {
+            return block(block::block_type::air);
+        }
         return data[z * 256 + y * 16 + x];
     }
 }

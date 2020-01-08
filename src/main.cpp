@@ -1,5 +1,4 @@
 #include "core/game.hpp"
-#include "core/logger.hpp"
 
 int main() {
     minecraft::game g{};

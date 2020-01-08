@@ -6,5 +6,5 @@ in vec2 tx_coords;
 out vec3 color;
 
 void main() {
-    color = texture(sampler, tx_coords).rgb;
+    color = vec3(1.0f);
 }
