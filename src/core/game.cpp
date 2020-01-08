@@ -28,6 +28,7 @@ namespace minecraft {
 
             chunk_shader.end();
 
+            process_input();
             glfwPollEvents();
             glfwSwapBuffers(window);
         }
@@ -86,5 +87,9 @@ namespace minecraft {
         glDebugMessageCallback(debug_callback, nullptr);
 
         return 0;
+    }
+
+    void game::process_input() const {
+        cam.move(window);
     }
 }

@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.15)
-project(NMinecraftPP)
+project(MinecraftPP)
 
 add_subdirectory(dependencies/glfw)
 add_subdirectory(dependencies/fmt)
@@ -14,7 +14,7 @@ include_directories(include)
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_executable(NMinecraftPP
+add_executable(MinecraftPP
         src/main.cpp
         dependencies/glad/glad/glad.c
         dependencies/glad/glad/glad.h
@@ -43,4 +43,4 @@ add_executable(NMinecraftPP
         src/core/camera.cpp
         src/renderer/renderer.cpp)
 
-target_link_libraries(NMinecraftPP glfw fmt pthread dl GL)
+target_link_libraries(MinecraftPP glfw fmt pthread dl GL)

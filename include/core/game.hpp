@@ -18,6 +18,7 @@
 namespace minecraft {
     class game {
         GLFWwindow* window{};
+        void process_input() const;
     public:
         game() = default;
         types::i32 run();
