@@ -1,7 +1,7 @@
 #ifndef NMINECRAFTPP_SHADER_HPP
 #define NMINECRAFTPP_SHADER_HPP
 
-#include "glad/glad.h"
+#include <renderer/glad.hpp>
 #include "glm/matrix.hpp"
 #include "glm/gtc/type_ptr.hpp"
 

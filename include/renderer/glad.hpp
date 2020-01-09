@@ -1,0 +1,6 @@
+#ifndef MINECRAFTPP_RENDERER_GLAD_HPP
+#define MINECRAFTPP_RENDERER_GLAD_HPP
+
+#include <glad/glad.h>
+
+#endif // !MINECRAFTPP_RENDERER_GLAD_HPP

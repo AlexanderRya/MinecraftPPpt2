@@ -3,8 +3,8 @@
 
 #define STB_IMAGE_IMPLEMENTATION
 #define STB_IMAGE_STATIC
-#include "stb/stb_image.h"
-#include "glad/glad.h"
+#include "stb_image.h"
+#include <renderer/glad.hpp>
 
 #include "core/logger.hpp"
 
@@ -13,13 +13,14 @@
 namespace minecraft {
     class texture {
         unsigned id{};
-    public:
+
+      public:
         explicit texture(const std::filesystem::path&);
         texture() = default;
 
         void bind() const;
         void unbind() const;
     };
-}
+} // namespace minecraft
 
 #endif //NMINECRAFTPP_TEXTURE_HPP

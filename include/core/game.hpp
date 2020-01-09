@@ -1,7 +1,7 @@
 #ifndef NMINECRAFTPP_GAME_HPP
 #define NMINECRAFTPP_GAME_HPP
 
-#include "glad/glad.h"
+#include <renderer/glad.hpp>
 #include "GLFW/glfw3.h"
 
 #include "camera.hpp"
