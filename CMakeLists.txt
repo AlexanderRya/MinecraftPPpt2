@@ -9,6 +9,7 @@ add_subdirectory(dependencies/glfw)
 add_subdirectory(dependencies/fmt)
 add_subdirectory(dependencies/glm)
 add_subdirectory(dependencies/glad)
+add_subdirectory(dependencies/stb_image)
 
 set(CMAKE_CXX_STANDARD 20)
 
@@ -62,13 +63,13 @@ execute_process(COMMAND ${GIT_EXECUTABLE} submodule update --init --recursive
         WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
         RESULT_VARIABLE UPDATE_SUBMODULES_RESULT)
 
-set_target_properties(glfw fmt
+set_target_properties(glfw fmt glad stb_image
         PROPERTIES
         COMPILE_OPTIONS -Wno-everything)
 
 if (NOT WIN32)
-    target_link_libraries(MinecraftPP glad glfw fmt pthread dl GL)
+    target_link_libraries(MinecraftPP glad glfw stb_image fmt pthread dl GL)
 else()
     target_compile_definitions(MinecraftPP PRIVATE _CRT_SECURE_NO_WARNINGS)
-    target_link_libraries(MinecraftPP glad glfw fmt)
+    target_link_libraries(MinecraftPP glad glfw stb_image fmt)
 endif()

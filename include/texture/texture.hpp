@@ -1,9 +1,6 @@
 #ifndef NMINECRAFTPP_TEXTURE_HPP
 #define NMINECRAFTPP_TEXTURE_HPP
 
-#define STB_IMAGE_IMPLEMENTATION
-#define STB_IMAGE_STATIC
-#include "stb_image.h"
 #include <renderer/glad.hpp>
 
 #include "core/logger.hpp"

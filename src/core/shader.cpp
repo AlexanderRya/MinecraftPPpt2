@@ -3,8 +3,8 @@
 
 namespace minecraft {
     shader::shader(const std::filesystem::path& vertex, const std::filesystem::path& fragment) {
-        std::ifstream vin("../assets/shaders/" + vertex.generic_string());
-        std::ifstream fin("../assets/shaders/" + fragment.generic_string());
+        std::ifstream vin("assets/shaders/" + vertex.generic_string());
+        std::ifstream fin("assets/shaders/" + fragment.generic_string());
 
         if (!vin.is_open()) {
             logger::log<types::log_codes::error>(
@@ -23,8 +23,8 @@ namespace minecraft {
                 fmt::format("can't find shader at: {}", fragment.generic_string() + ", code:"));
         }
 
-        std::string temp_vsource{ std::istreambuf_iterator{ vin }, {}};
-        std::string temp_fsource{ std::istreambuf_iterator{ fin }, {}};
+        std::string temp_vsource{std::istreambuf_iterator{vin}, {}};
+        std::string temp_fsource{std::istreambuf_iterator{fin}, {}};
 
         auto vertex_source = temp_vsource.c_str();
         auto fragment_source = temp_fsource.c_str();
@@ -37,7 +37,7 @@ namespace minecraft {
         if (!get_compile_status(vshader)) {
             throw std::runtime_error(
                 fmt::format("vertex shader compilation failed, log:\n{}",
-                    get_compile_log(vshader)));
+                            get_compile_log(vshader)));
         }
 
         glShaderSource(fshader, 1, &fragment_source, nullptr);
@@ -45,7 +45,7 @@ namespace minecraft {
         if (!get_compile_status(fshader)) {
             throw std::runtime_error(
                 fmt::format("fragment shader compilation failed, log:\n {}",
-                    get_compile_log(fshader)));
+                            get_compile_log(fshader)));
         }
 
         id = glCreateProgram();
@@ -57,7 +57,7 @@ namespace minecraft {
         if (!get_link_status(id)) {
             throw std::runtime_error(
                 fmt::format("shader program linking failed, log:\n {}",
-                    get_link_log(id)));
+                            get_link_log(id)));
         }
 
         glDeleteShader(vshader);
@@ -65,7 +65,7 @@ namespace minecraft {
 
         logger::log<types::log_codes::info>(
             fmt::format("shader creation for: {} and {} exited with code:",
-                vertex.generic_string(), fragment.generic_string()),
+                        vertex.generic_string(), fragment.generic_string()),
             types::error_codes::zero);
     }
 
@@ -112,4 +112,4 @@ namespace minecraft {
     void shader::set_mat4(const char* name, const glm::mat4& mat) const {
         glUniformMatrix4fv(glGetUniformLocation(id, name), 1, false, glm::value_ptr(mat));
     }
-}
+} // namespace minecraft

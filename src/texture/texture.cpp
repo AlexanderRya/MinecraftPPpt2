@@ -1,5 +1,8 @@
 #include "texture/texture.hpp"
 
+#include <cassert>
+#include <stb_image.h>
+
 namespace minecraft {
     texture::texture(const std::filesystem::path& path) {
         glGenTextures(1, &id);
