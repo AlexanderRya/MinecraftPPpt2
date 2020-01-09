@@ -50,15 +50,6 @@ target_include_directories(MinecraftPP
     "include"
 )
 
-if(MSVC)
-    set(MINECRAFTPP_DEPENDENCIES_COMPILE_FLAGS /W0)
-else() 
-    set(MINECRAFTPP_DEPENDENCIES_COMPILE_FLAGS -Wno-everything)
-endif()
-
-target_compile_options(glfw PRIVATE ${MINECRAFTPP_DEPENDENCIES_COMPILE_FLAGS})
-target_compile_options(fmt PRIVATE ${MINECRAFTPP_DEPENDENCIES_COMPILE_FLAGS})
-
 execute_process(COMMAND ${GIT_EXECUTABLE} submodule update --init --recursive
         WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
         RESULT_VARIABLE UPDATE_SUBMODULES_RESULT)
