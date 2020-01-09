@@ -19,9 +19,9 @@ namespace minecraft::types {
     using usize = u64;
 
     enum class log_codes {
-        INFO,
-        WARN,
-        ERROR
+        info,
+        warn,
+        error
     };
 
     enum class error_codes {

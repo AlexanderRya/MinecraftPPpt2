@@ -24,9 +24,9 @@ namespace minecraft {
                 get_current_timestamp(),
                 stringify_error_level<Vx>(),
                 msg, to_underlying_type(code));
-            if constexpr (Vx == types::log_codes::INFO) {
+            if constexpr (Vx == types::log_codes::info) {
                 color = rang::fgB::green;
-            } else if constexpr (Vx == types::log_codes::WARN) {
+            } else if constexpr (Vx == types::log_codes::warn) {
                 color = rang::fgB::yellow;
             } else {
                 color = rang::fgB::red;
