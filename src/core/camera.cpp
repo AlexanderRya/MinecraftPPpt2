@@ -8,7 +8,8 @@ namespace minecraft {
     }
 
     bool camera::has_moved() {
-        return prec_pos == cam_pos ? false : (prec_pos = cam_pos, true);
+        ///@TODO: Change this shit
+        //return prec_pos == cam_pos ? false : (prec_pos = cam_pos, true);
     }
 
     void camera::move(GLFWwindow* window) {

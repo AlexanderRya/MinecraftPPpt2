@@ -1,6 +1,10 @@
 cmake_minimum_required(VERSION 3.15)
 project(MinecraftPP)
 
+set(GLFW_BUILD_DOCS OFF CACHE BOOL "" FORCE)
+set(GLFW_BUILD_TESTS OFF CACHE BOOL "" FORCE)
+set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
+
 add_subdirectory(dependencies/glfw)
 add_subdirectory(dependencies/fmt)
 add_subdirectory(dependencies/glm)
@@ -55,4 +59,16 @@ endif()
 target_compile_options(glfw PRIVATE ${MINECRAFTPP_DEPENDENCIES_COMPILE_FLAGS})
 target_compile_options(fmt PRIVATE ${MINECRAFTPP_DEPENDENCIES_COMPILE_FLAGS})
 
-target_link_libraries(MinecraftPP glfw fmt pthread dl GL)
+execute_process(COMMAND ${GIT_EXECUTABLE} submodule update --init --recursive
+        WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
+        RESULT_VARIABLE UPDATE_SUBMODULES_RESULT)
+
+set_target_properties(glfw fmt
+        PROPERTIES
+        COMPILE_OPTIONS -Wno-everything)
+
+if (NOT WIN32)
+    target_link_libraries(MinecraftPP glfw fmt pthread dl GL)
+else()
+    target_link_libraries(MinecraftPP glfw fmt)
+endif()

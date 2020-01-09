@@ -3,9 +3,8 @@
 
 namespace minecraft {
     shader::shader(const std::filesystem::path& vertex, const std::filesystem::path& fragment) {
-        std::ifstream
-            vin("../assets/shaders/" + vertex.generic_string()),
-            fin("../assets/shaders/" + fragment.generic_string());
+        std::ifstream vin("../assets/shaders/" + vertex.generic_string());
+        std::ifstream fin("../assets/shaders/" + fragment.generic_string());
 
         if (!vin.is_open()) {
             logger::log<types::log_codes::ERROR>(
@@ -24,16 +23,14 @@ namespace minecraft {
                 fmt::format("can't find shader at: {}", fragment.generic_string() + ", code:"));
         }
 
-        std::string
-            temp_vsource{ std::istreambuf_iterator{ vin }, {}},
-            temp_fsource{ std::istreambuf_iterator{ fin }, {}};
+        std::string temp_vsource{ std::istreambuf_iterator{ vin }, {}};
+        std::string temp_fsource{ std::istreambuf_iterator{ fin }, {}};
 
         auto vertex_source = temp_vsource.c_str();
         auto fragment_source = temp_fsource.c_str();
 
-        types::u32
-            vshader = glCreateShader(GL_VERTEX_SHADER),
-            fshader = glCreateShader(GL_FRAGMENT_SHADER);
+        types::u32 vshader = glCreateShader(GL_VERTEX_SHADER);
+        types::u32 fshader = glCreateShader(GL_FRAGMENT_SHADER);
 
         glShaderSource(vshader, 1, &vertex_source, nullptr);
         glCompileShader(vshader);
