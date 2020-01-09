@@ -16,7 +16,6 @@ namespace minecraft {
     public:
         explicit texture(const std::filesystem::path&);
         texture() = default;
-        texture(const texture&) noexcept;
 
         void bind() const;
         void unbind() const;

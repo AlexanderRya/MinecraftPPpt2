@@ -28,8 +28,4 @@ namespace minecraft {
             assert(false);
         }
     }
-
-    texture::texture(const texture& t) noexcept {
-        id = t.id;
-    }
 }
