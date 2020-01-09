@@ -19,19 +19,19 @@ namespace minecraft::types {
     using usize = u64;
 
     enum class log_codes {
-        INFO,
-        WARN,
-        ERROR
+        info,
+        warn,
+        error
     };
 
     enum class error_codes {
-        ZERO = 0,
-        GLFW_INIT,
-        GLFW_WINDOW_CREATION,
-        GLAD_INIT,
-        FILE_NOT_FOUND,
-        SHADER_COMPILATION,
-        SHADER_LINKING
+        zero = 0,
+        glfw_init,
+        glfw_window_creation,
+        glad_init,
+        file_not_found,
+        shader_compilation,
+        shader_linking
     };
 }
 

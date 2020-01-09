@@ -29,7 +29,6 @@ namespace minecraft {
 
         glBufferStorage(GL_ARRAY_BUFFER, 36 * sizeof(vertex) + 4194304 * sizeof(glm::ivec3), nullptr, GL_DYNAMIC_STORAGE_BIT);
         glBufferSubData(GL_ARRAY_BUFFER, 0, 36 * sizeof(vertex), cube_data.data());
-        glBufferSubData(GL_ARRAY_BUFFER, block_offset, chunks[0].to_draw.size() * sizeof(glm::ivec3), chunks[0].to_draw.data());
 
         glBindBuffer(GL_ARRAY_BUFFER, 0);
         glBindVertexArray(0);
@@ -37,12 +36,10 @@ namespace minecraft {
 
     void renderer::render() const {
         glBindVertexArray(vao);
-        glBindBuffer(GL_ARRAY_BUFFER, vbo);
 
-        glBindVertexBuffer(0, vbo, 0, sizeof(vertex));
-        glBindVertexBuffer(1, vbo, block_offset, sizeof(glm::ivec3));
-
-        glDrawArraysInstanced(GL_TRIANGLES, 0, cube_data.size(), chunks[0].to_draw.size());
+        for (const auto& each : chunks) {
+            each.draw(vbo);
+        }
 
         glBindVertexArray(0);
     }

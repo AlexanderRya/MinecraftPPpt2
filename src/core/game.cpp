@@ -32,31 +32,31 @@ namespace minecraft {
             glfwPollEvents();
             glfwSwapBuffers(window);
         }
-        return logger::log<types::log_codes::INFO>(
-            "main loop exited with code:", types::error_codes::ZERO);
+        return logger::log<types::log_codes::info>(
+            "main loop exited with code:", types::error_codes::zero);
     }
 
     types::i32 game::init() {
         // glfw init
         if (!glfwInit()) {
-            return logger::log<types::log_codes::ERROR>(
-                "at glfwInit with code:", types::error_codes::GLFW_INIT);
+            return logger::log<types::log_codes::error>(
+                "at glfwInit with code:", types::error_codes::glfw_init);
         }
 
-        logger::log<types::log_codes::INFO>(
-            "glfwInit exited with code:", types::error_codes::ZERO);
+        logger::log<types::log_codes::info>(
+            "glfwInit exited with code:", types::error_codes::zero);
 
         glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
         glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
         glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
         if (!(window = glfwCreateWindow(minecraft::WIDTH, minecraft::HEIGHT, "MinecraftPP", nullptr, nullptr))) {
-            return logger::log<types::log_codes::ERROR>(
-                "at glfwCreateWindow with code:", types::error_codes::GLFW_WINDOW_CREATION);
+            return logger::log<types::log_codes::error>(
+                "at glfwCreateWindow with code:", types::error_codes::glfw_window_creation);
         }
 
-        logger::log<types::log_codes::INFO>(
-            "glfwCreateWindow exited with code:", types::error_codes::ZERO);
+        logger::log<types::log_codes::info>(
+            "glfwCreateWindow exited with code:", types::error_codes::zero);
 
         glfwMakeContextCurrent(window);
         glfwSwapInterval(0);
@@ -64,12 +64,12 @@ namespace minecraft {
         // glad init
         if (!gladLoadGLLoader(reinterpret_cast<GLADloadproc>(glfwGetProcAddress))) {
             glfwTerminate();
-            return logger::log<types::log_codes::ERROR>(
-                "at gladLoadGLLoader with code:", types::error_codes::GLAD_INIT);
+            return logger::log<types::log_codes::error>(
+                "at gladLoadGLLoader with code:", types::error_codes::glad_init);
         }
 
-        logger::log<types::log_codes::INFO>(
-            "gladLoadGLLoader exited with code:", types::error_codes::ZERO);
+        logger::log<types::log_codes::info>(
+            "gladLoadGLLoader exited with code:", types::error_codes::zero);
 
         glViewport(0, 0, minecraft::WIDTH, minecraft::HEIGHT);
 
