@@ -38,7 +38,7 @@ namespace minecraft {
         static std::string get_current_timestamp() {
             namespace ch = std::chrono;
 
-            auto time = ch::high_resolution_clock::to_time_t(ch::high_resolution_clock::now());
+            auto time = ch::duration_cast<ch::seconds>(ch::high_resolution_clock::now().time_since_epoch()).count();
 
             std::string buf(128, '\0');
             buf.resize(std::strftime(buf.data(), buf.size(), "%Y-%m-%d %X", std::localtime(&time)));
