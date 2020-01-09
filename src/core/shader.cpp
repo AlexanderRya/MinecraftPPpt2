@@ -9,7 +9,7 @@ namespace minecraft {
         if (!vin.is_open()) {
             logger::log<types::log_codes::error>(
                 "file not found error at: " + vertex.generic_string() + ", code:",
-                types::error_codes::FILE_NOT_FOUND);
+                types::error_codes::file_not_found);
 
             throw std::runtime_error(
                 fmt::format("can't find shader at: {}", vertex.generic_string() + ", code:"));
@@ -17,7 +17,7 @@ namespace minecraft {
         if (!fin.is_open()) {
             logger::log<types::log_codes::error>(
                 "file not found error at: " + fragment.generic_string() + ", code:",
-                types::error_codes::FILE_NOT_FOUND);
+                types::error_codes::file_not_found);
 
             throw std::runtime_error(
                 fmt::format("can't find shader at: {}", fragment.generic_string() + ", code:"));
@@ -66,7 +66,7 @@ namespace minecraft {
         logger::log<types::log_codes::info>(
             fmt::format("shader creation for: {} and {} exited with code:",
                 vertex.generic_string(), fragment.generic_string()),
-            types::error_codes::ZERO);
+            types::error_codes::zero);
     }
 
     std::string shader::get_compile_log(const types::u32 shader) const {
@@ -75,7 +75,7 @@ namespace minecraft {
         std::string log(log_length, '\0');
         glGetShaderInfoLog(shader, log_length, &log_length, &log[0]);
         logger::log<types::log_codes::error>(
-            "at glCompileShader with code:", types::error_codes::SHADER_COMPILATION);
+            "at glCompileShader with code:", types::error_codes::shader_compilation);
         return log;
     }
 
@@ -85,7 +85,7 @@ namespace minecraft {
         std::string log(log_length, '\0');
         glGetProgramInfoLog(program, log_length, &log_length, &log[0]);
         logger::log<types::log_codes::error>(
-            "at glLinkProgram with code:", types::error_codes::SHADER_LINKING);
+            "at glLinkProgram with code:", types::error_codes::shader_linking);
         return log;
     }
 

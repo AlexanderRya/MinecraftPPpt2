@@ -33,18 +33,18 @@ namespace minecraft {
             glfwSwapBuffers(window);
         }
         return logger::log<types::log_codes::info>(
-            "main loop exited with code:", types::error_codes::ZERO);
+            "main loop exited with code:", types::error_codes::zero);
     }
 
     types::i32 game::init() {
         // glfw init
         if (!glfwInit()) {
             return logger::log<types::log_codes::error>(
-                "at glfwInit with code:", types::error_codes::GLFW_INIT);
+                "at glfwInit with code:", types::error_codes::glfw_init);
         }
 
         logger::log<types::log_codes::info>(
-            "glfwInit exited with code:", types::error_codes::ZERO);
+            "glfwInit exited with code:", types::error_codes::zero);
 
         glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
         glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
@@ -52,11 +52,11 @@ namespace minecraft {
 
         if (!(window = glfwCreateWindow(minecraft::WIDTH, minecraft::HEIGHT, "MinecraftPP", nullptr, nullptr))) {
             return logger::log<types::log_codes::error>(
-                "at glfwCreateWindow with code:", types::error_codes::GLFW_WINDOW_CREATION);
+                "at glfwCreateWindow with code:", types::error_codes::glfw_window_creation);
         }
 
         logger::log<types::log_codes::info>(
-            "glfwCreateWindow exited with code:", types::error_codes::ZERO);
+            "glfwCreateWindow exited with code:", types::error_codes::zero);
 
         glfwMakeContextCurrent(window);
         glfwSwapInterval(0);
@@ -65,11 +65,11 @@ namespace minecraft {
         if (!gladLoadGLLoader(reinterpret_cast<GLADloadproc>(glfwGetProcAddress))) {
             glfwTerminate();
             return logger::log<types::log_codes::error>(
-                "at gladLoadGLLoader with code:", types::error_codes::GLAD_INIT);
+                "at gladLoadGLLoader with code:", types::error_codes::glad_init);
         }
 
         logger::log<types::log_codes::info>(
-            "gladLoadGLLoader exited with code:", types::error_codes::ZERO);
+            "gladLoadGLLoader exited with code:", types::error_codes::zero);
 
         glViewport(0, 0, minecraft::WIDTH, minecraft::HEIGHT);
 
